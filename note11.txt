@@ -1,0 +1,47 @@
+npm init          khởi tạo dự án
+
+npm i express     tải framework express
+npm i mongoose     tải framework mongoose
+
+express()         tạo app
+
+.listen(port)     cấp cho app cổng để nhận request, trả response     
+
+.get('link', function(req,res){
+  res.send('text')
+})
+
+res.send                          gửi text
+
+res.sendFile('link tuyet doi')    gửi file lên server
+
+==========================================================
+express.static                    gửi folder lên server
+
+app.use('/link', express.static(link tuyệt đối đến folder cần gửi))
+
+==========================================================
+
+res.json({key:value})             gửi data json về client
+==========================================================
+
+gửi data trên url
+
+query         
+?key=value&key2=value2            thêm data vào url
+                                  chỉ việc thêm data lên url
+                                  key, value viết tùy ý
+                                  có thể dùng hoặc k dùng, tùy ý
+
+req.query                         nhận query gửi về trên đường dẫn
+
+
+param
+server  
+/:key                             sửa đường dẫn để quy định params
+req.params                        nhận params trả về
+                                  params cố định key
+                                  buộc phải dùng nếu muốn truy cập data
+
+client
+/value

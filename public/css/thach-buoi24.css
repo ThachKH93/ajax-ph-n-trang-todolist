@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #2e73bf;
+}
+.p1{
+    text-align: center;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    /* justify-content: center; */
+}
+/* .mov1 button{
+    display: none;
+} */
+.con1{
+    padding: 20px;
+    width: 31%;
+    height: 100%;
+}
+.mov1:hover button{
+    display: block;
+}
+.container div.con1{
+    background: #ebecf0;
+    border-radius: 5px;
+}
+
+.todo-list, .doing-list, .done-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* text-align:  center; */
+}
+/* .todo-list button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+} */
+tr.mov1{
+    display: block;
+    width: 100%;
+    background: #ffffff;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.mov1 td{
+    padding: 2px 5px;
+    margin: 5px 0;
+    /* display: inline-block; */
+}
+.mov1 button{
+    background: pink;
+}
+.con1 .mi{
+    background: #ebecf0;
+    color: black;
+    border: none;
+}
+.main{
+    text-align: center;
+}
+

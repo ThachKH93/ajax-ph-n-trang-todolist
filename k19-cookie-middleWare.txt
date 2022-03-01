@@ -1,0 +1,67 @@
+npm init          khởi tạo dự án
+
+npm i express     tải framework express
+
+express()         tạo app
+
+.listen(port)     cấp cho app cổng để nhận request, trả response     
+
+.get('link', function(req,res){
+  res.send('text')
+})
+
+res.send                          gửi text
+
+res.sendFile('link tuyet doi')    gửi file lên server
+
+==========================================================
+express.static                    gửi folder lên server
+
+app.use('/link', express.static(link tuyệt đối đến folder cần gửi))
+
+==========================================================
+
+res.json({key:value})             gửi data json về client
+==========================================================
+
+gửi data trên url
+
+query         
+?key=value&key2=value2            thêm data vào url
+                                  chỉ việc thêm data lên url
+                                  key, value viết tùy ý
+                                  có thể dùng hoặc k dùng, tùy ý
+
+req.query                         nhận query gửi về trên đường dẫn
+
+
+param
+server  
+/:key                             sửa đường dẫn để quy định params
+req.params                        nhận params trả về
+                                  params cố định key
+                                  buộc phải dùng nếu muốn truy cập data
+
+client
+/value
+
+cookie                            bộ nhớ của trình duyệt
+                                  tự động đính kèm vào request gửi về server
+C1
+req.headers.cookie                cookie dạng string
+
+C2
+cài cookie-parser
+req.cookies                       cookie dạng object
+
+window.location.href = link       client chuyển trang
+
+res.redirect(link)                server chuyển trang của client
+
+middleWare                        những bước trung gian cần hoàn thỏa mãn để có thể làm chức năng
+next()                            kết thúc middleWare để chuyển qua bước tiếp theo
+
+
+làm todoList áp dụng phân trang vào list công việc
+chức năng đăng ký , đăng nhập
+chức năng lưu đăng nhập, kiểm tra đăng nhập

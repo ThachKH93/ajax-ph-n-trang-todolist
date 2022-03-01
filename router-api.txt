@@ -1,0 +1,59 @@
+Buoi 31 router - API
+router              bộ định tuyến, phân luồng dựa theo đường dẫn
+
+B1: tạo router
+const router = express.Router()
+
+router.get('/', function(req,res){code})
+
+module.exports = router
+
+B2  sử dụng router
+require router 
+
+app.use('/link định danh', router)
+
+=============================================================
+
+restful API
+
+quy ước làm việc chung của các lập trình viên về đường dẫn và method khi viết API
+
+method thông dụng 
+
+GET / POST / PUT / DELETE
+
+đường dẫn phải chứa tên bảng data sẽ tương tác
+khi tương tác với 1 data cụ thể thì phải gắn kèm id trên param
+
+GET         
+/user       xem data
+/user/:id   xem 1 data cụ thể
+            hiển thị data lên giao diện
+
+POST        thêm data
+/user
+
+PUT         update data
+/user/:id   update 1 data cụ thể
+
+DELETE      xóa data
+/user/:id   xóa 1 data cụ thể
+
+//
+tạo bảng user, bảng todoList
+tạo router cho bảng user, bảng todoList
+viết api trong router user
+  tạo user (check trungf username)
+  lấy danh sách user
+  xem thông tin cá nhân (thông tin user theo id)
+  đổi mật khẩu user
+  xóa user
+
+viết api trong router todoList
+  thêm mới công việc
+  xem danh sách công việc
+  xóa công việc
+  update công việc (đổi tên, sửa status)
+
+

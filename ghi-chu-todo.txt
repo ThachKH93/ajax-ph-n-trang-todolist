@@ -1,0 +1,415 @@
+ file todo.js ngày 20/1/2022 11/45 AM
+
+ todo.js
+ function renderHome(){
+
+$.ajax({
+    url: '/Todo/danhsach',
+    type : 'GET',
+
+})
+.then(data =>{ 
+    console.log(data);
+    let statusList = []
+    let todoList = []
+    let doingList = []
+    let doneList = []
+    let All = [todoList ,doingList ,doneList]
+    
+    // $("#chon").append(` <option value='all'> all </option> `)
+    $("#chon").html(` <option value='all'> all </option> `)
+    for (let i = 0; i < data.length; i++) {
+        // console.log(data[i]);
+        if (statusList.includes(data[i].status) === false ) {
+            statusList.push(data[i].status)
+            const option1 = `
+            <option value='${data[i].status}'> ${data[i].status} </option>
+            `
+            $("#chon").append(option1)
+        }
+        
+    }
+    console.log(90, statusList);
+    
+    for (let i = 0; i < data.length; i++) {
+        
+        if (data[i].status === 'todo' ) {
+            todoList.push(data[i])
+        }
+        if (data[i].status === 'doing' ) {
+            doingList.push(data[i])
+        }
+        if (data[i].status === 'done' ) {
+            doneList.push(data[i])
+        }
+        
+    }
+    
+    // TOdolist
+    $('.todo-list').html('')
+    $('.doing-list').html('')
+    $('.done-list').html('')
+    $('.todobutton').html('')
+    $('.doingbutton').html('')
+    $('.donebutton').html('') 
+    //todo
+    // for (let i = 0; i < (5 > todoList.length ? todoList.length : 5); i++) {
+    //     const div = `
+    //     <tr>
+    //         <td>${todoList[i].name} </td>
+    //         <td>${todoList[i].dealine} </td>
+    //         <div class="">
+    //             <td> <button class=" update${todoList[i].status}${i}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+    //             <td> <button class="xoa${todoList[i].status}${i} "> X </button> </td>
+    //         </div>
+    //     </tr>
+    //     ` 
+    //     $(`.${todoList[i].status}-list`).append(div) 
+    //     $(`.update${todoList[i].status}${i}`).on('click', function(){
+    //         console.log(todoList[i]);
+    //         $('#name1').val(todoList[i].name)
+    //         $('#dealine1').val(todoList[i].dealine)
+    //         $('#status1').val(todoList[i].status)
+    //     })
+    //     $(`.xoa${todoList[i].status}${i}`).on('click', function(){
+    //         xoaWork(todoList[i])
+    //     })
+    // }
+    // const totalPagetodo = Math.ceil(todoList.length / 5)
+    // for (let i = 1; i <= totalPagetodo; i++) {
+    //     let button = ` <button onclick="todopage(${i},1)">${i} </button> `
+    //     $('.todobutton').append(button)
+    // }
+    // console.log(8888, All);
+    for (let i = 0; i < All.length; i++) {
+        console.log(79, All[i]);
+        for (let k = 0; k < (5 > All[i].length ? All[i].length : 5); k++) {
+            const div = `
+            <div>
+                ${All[i][k].name} 
+                ${All[i][k].dealine} 
+                <button class="up bb update${All[i][k].status}${k}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button>
+                <button class="xoa${All[i][k].status}${k} aa"> X </button> 
+             </div>
+            ` 
+            $(`.${All[i][k].status}-list`).append(div) 
+            $(`.update${All[i][k].status}${k}`).on('click', function(){
+                console.log(All[i][k]);
+                $('#name1').val(All[i][k].name)
+                $('#dealine1').val(All[i][k].dealine)
+                $('#status1').val(All[i][k].status)
+            })
+            $(`.xoa${All[i][k].status}${k}`).on('click', function(){
+                xoaWork(All[i][k])
+            })
+        }
+
+        for (let j = 1; j <= Math.ceil(All[i].length / 5); j++) { // page homtodo
+            let button = ` <button onclick="todopage(${j},${i}+1)">${j} </button> `
+            $(`.${All[i][j].status}button`).append(button)
+        }
+        // for (let j = 1; j <= Math.ceil(All[i].length / 5); j++) { // page homtodo
+        //     let button = ` <button onclick="todopage(${j},${All[i][j].status})">${j} </button> `
+        //     $(`.${All[i][j].status}button`).append(button)
+        // }
+        
+    }
+    
+    //doing
+    
+    // for (let i = 0; i < (5 > doingList.length ? doingList.length : 5); i++) {
+    //     const div = `
+    //     <tr>
+    //         <td>${doingList[i].name} </td>
+    //         <td>${doingList[i].dealine} </td>
+    //         <div class="">
+    //             <td> <button class=" update${doingList[i].status}${i}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+    //             <td> <button class="xoa${doingList[i].status}${i} "> X </button> </td>
+    //         </div>
+    //     </tr>
+    //     ` 
+    //     $(`.${doingList[i].status}-list`).append(div) 
+    //     $(`.update${doingList[i].status}${i}`).on('click', function(){
+    //         console.log(doingList[i]);
+    //         $('#name1').val(doingList[i].name)
+    //         $('#dealine1').val(doingList[i].dealine)
+    //         $('#status1').val(doingList[i].status)
+    //     })
+    //     $(`.xoa${doingList[i].status}${i}`).on('click', function(){
+    //         xoaWork(doingList[i])
+    //     })
+    // }
+    // const totalPagedoing = Math.ceil(doingList.length / 5)
+    // for (let i = 1; i <= totalPagedoing; i++) {
+    //     let button = ` <button onclick="todopage(${i},2)">${i} </button> `
+    //     $('.doingbutton').append(button)
+    // }
+
+    //done
+    // for (let i = 0; i < (5 > doneList.length ? doneList.length : 5); i++) {
+    //     const div = `
+    //     <tr>
+    //         <td>${doneList[i].name} </td>
+    //         <td>${doneList[i].dealine} </td>
+    //         <div class="">
+    //             <td> <button class=" update${doneList[i].status}${i}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+    //             <td> <button class="xoa${doneList[i].status}${i} "> X </button> </td>
+    //         </div>
+    //     </tr>
+    //     ` 
+    //     $(`.${doneList[i].status}-list`).append(div)  // thêm nút update và xóa
+    //     $(`.update${doneList[i].status}${i}`).on('click', function(){ // update
+    //         console.log(doneList[i]);
+    //         $('#name1').val(doneList[i].name)
+    //         $('#dealine1').val(doneList[i].dealine)
+    //         $('#status1').val(doneList[i].status)
+    //     })
+    //     $(`.xoa${doneList[i].status}${i}`).on('click', function(){ // xóa
+    //         xoaWork(doneList[i])
+    //     })
+    // }
+    // const totalPagedone = Math.ceil(doneList.length / 5)
+    // for (let i = 1; i <= totalPagedone; i++) {
+    //     let button = ` <button onclick="todopage(${i},3)">${i} </button> `
+    //     $('.donebutton').append(button)
+    // }
+})
+.catch(err =>{console.log(7, err);})
+}
+
+renderHome()
+
+async function todopage(i, st){ 
+    console.log(i, st);
+    try {
+        var statusName 
+        if (st === 1) {// todo
+            statusName = 'todo'
+        }  
+        if (st === 2) {// doing
+            statusName = 'doing'
+        }  
+        if (st === 3) {// done
+            statusName = 'done'
+        }  
+        if (statusName) {
+            console.log(statusName);
+            $(`.${statusName}-list`).html('')
+            const data = await $.ajax({
+                url: `/Todo/page/${i}/${statusName}`, 
+                type: 'GET'
+            })
+            $(`.${statusName}-list`).html('')
+            for (let j = 0; j < data.length; j++) {
+                    const div = `
+                    <tr>
+                        <td>${data[j].name} </td>
+                        <td>${data[j].dealine} </td>
+                        <div class="">
+                            <td> <button class=" update${data[j].status}${j}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+                            <td> <button class="xoa${data[j].status}${j} "> X </button> </td>
+                        </div>
+                    </tr>
+                    ` 
+                    $(`.${statusName}-list`).append(div) 
+            }
+            console.log(data);
+        }
+
+        // if (st === 1) {// todo
+        //     const statusName = 'todo'
+        //     console.log(statusName);
+        //     // $('.todo-list').html('')
+        //     $(`.${statusName}-list`).html('')
+        //     const data = await $.ajax({
+        //         url: `/Todo/page/${i}/${statusName}`, 
+        //         type: 'GET'
+        //     })
+        //     // $('.todo-list').html('')
+        //     $(`.${statusName}-list`).html('')
+        //     for (let j = 0; j < data.length; j++) {
+        //             const div = `
+        //             <tr>
+        //                 <td>${data[j].name} </td>
+        //                 <td>${data[j].dealine} </td>
+        //                 <div class="">
+        //                     <td> <button class=" update${data[j].status}${j}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+        //                     <td> <button class="xoa${data[j].status}${j} "> X </button> </td>
+        //                 </div>
+        //             </tr>
+        //             ` 
+        //             // $('.todo-list').append(div) 
+        //             $(`.${statusName}-list`).append(div) 
+        //     }
+        //     console.log(data);
+        // }  
+        // if (st === 2) { // doing
+        //     const statusName = 'doing'
+        //     console.log(statusName);
+        //     $('.doing-list').html('')
+        //     const data = await $.ajax({
+        //         url: `/Todo/page/${i}/${statusName}`, 
+        //         type: 'GET'
+        //     })
+        //     $('.doing-list').html('')
+        //     for (let j = 0; j < data.length; j++) {
+        //             // <div>${data[j].name} ${data[j].dealine}</div>
+        //             const div = `
+        //             <tr>
+        //                 <td>${data[j].name} </td>
+        //                 <td>${data[j].dealine} </td>
+        //                 <div class="">
+        //                     <td> <button class=" update${data[j].status}${j}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+        //                     <td> <button class="xoa${data[j].status}${j} "> X </button> </td>
+        //                 </div>
+        //             </tr>
+        //             ` 
+        //             $('.doing-list').append(div) 
+        //     }
+        //     console.log(data);
+        // }  
+        // if (st === 3) { // done
+        //     const statusName = 'done'
+        //     console.log(statusName);
+        //     $('.done-list').html('')
+        //     const data = await $.ajax({
+        //         url: `/Todo/page/${i}/${statusName}`, 
+        //         type: 'GET'
+        //     })
+        //     $('.done-list').html('')
+        //     for (let j = 0; j < data.length; j++) {
+        //         const div = `
+        //         <tr>
+        //             <td>${data[j].name} </td>
+        //             <td>${data[j].dealine} </td>
+        //             <div class="">
+        //                 <td> <button class=" update${data[j].status}${j}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button> </td>
+        //                 <td> <button class="xoa${data[j].status}${j} "> X </button> </td>
+        //             </div>
+        //         </tr>
+        //          ` 
+        //         $('.done-list').append(div) 
+        //     }
+        //     console.log(data);
+        // }  
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+async function creatework(){
+    try {
+        var name1 = $('#name1').val();
+        var status1 = $('#status1').val();
+        var dealine1 = $('#dealine1').val();
+        if(name1 !== '' && status1 !== '' && dealine1 !== ''){
+            console.log({name: name1, status: status1, deadline: dealine1});
+            var user = await $.ajax({
+            url: 'http://localhost:4000/Todo/creatework',
+            type: 'POST',
+            data: {
+                name: name1,
+                dealine: dealine1,
+                status : status1
+                }
+            })
+            renderHome()
+            console.log(user);
+            $('#name1').val('')
+            $('#deadline1').val('')
+            $('.clo').trigger('click')
+        }else{
+            alert('Vui lòng nhập đủ thông tin')
+        }
+        
+        // alert(`${mess}`)
+        // render();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+async function updateWork(){ // sửa dealine trên htmlL
+    try {
+        const name =  $('#name1').val()
+        const dealine = $('#dealine1').val()
+        const status = $('#status1').val()
+        console.log(29,name, dealine, status);
+        const data1 = await $.ajax({
+        url: '/Todo/updateWork', 
+        type: 'PUT',
+        data: {
+            name: name,
+            dealine: dealine,
+            status: status
+            }
+        })
+        console.log(38, data1);
+        $('#name1').val('')
+        $('#deadline1').val('')
+        $('.clo').trigger('click')
+        renderHome()
+    } catch (error) {
+        console.log(40, error);
+    }
+}
+
+async function xoaWork(a){ // sửa dealine trên htmlL
+    try {
+        const name =  a.name
+        const data1 = await $.ajax({
+        url: '/Todo/xoaWork', 
+        type: 'DELETE',
+        data: {
+            name: name,
+            }
+        })
+        console.log(38, data1);
+        renderHome()
+    } catch (error) {
+        console.log(40, error);
+    }
+}
+///
+function test1(){
+    $('#add').css('display', 'block')
+    $('#update').css('display', 'none')
+}
+function test2(){
+    $('#add').css('display', 'none')
+    $('#update').css('display', 'block')
+}
+function update1(){
+    for (let i = 0; i < (5 > doneList.length ? doneList.length : 5); i++) {
+        const div = `
+        <div>
+         ${doneList[i].name} 
+         ${doneList[i].dealine} 
+        <button class="up bb update${doneList[i].status}${i}" onclick=test2() data-toggle="modal" data-target="#exampleModal">Up</button>
+        <button class="xoa${i} aa"> X </button> 
+         </div>
+        ` 
+        $(`.${doneList[i].status}-list`).append(div)  // thêm nút update và xóa
+        $(`.update${doneList[i].status}${i}`).on('click', function(){ // update
+            console.log(doneList[i]);
+            $('#name1').val(doneList[i].name)
+            $('#dealine1').val(doneList[i].dealine)
+            $('#status1').val(doneList[i].status)
+        })
+        $(`.xoa${i}`).on('click', function(){ // xóa
+            xoaWork(doneList[i])
+        })
+    }
+}
+
+$('#add').on('click',function(){ // add thêm work
+    creatework()
+})
+
+$('#update').on('click', function(){
+    updateWork()
+})
+
+

@@ -1,0 +1,9 @@
+npm init                        khởi tạo dự án
+
+npm i express                   tải framework express / dùng khi tạo sever
+                                express funtion tạo app
+
+npm i mongoose                  dùng mongoose
+
+npm install -g nodemon          tự đọng cập nhật code khi sửa xong và save
+                                nodemon ./app.js
